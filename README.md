@@ -75,7 +75,7 @@ A C++17-compatible compiler
 bash
 Copy
 Edit
-git clone https://github.com/your-username/regular-memory-access-analyzer.git
+git clone https://github.com/Aditi7Singh/regular-memory-access-analyzer.git
 cd regular-memory-access-analyzer
 mkdir build && cd build
 cmake ..
