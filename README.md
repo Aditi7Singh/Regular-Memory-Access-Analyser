@@ -1,16 +1,19 @@
 🔍 Regular Memory Access Analyzer
+
 A static analysis tool built with LLVM/Clang to detect regular vs. irregular memory access patterns in C/C++ code. Regular patterns (like sequential array access) can significantly improve performance due to better cache utilization, while irregular patterns often degrade efficiency.
 
 📌 Problem Statement
+
 The tool aims to analyze C/C++ functions and identify regular memory access patterns, such as:
 
-Accessing array elements in sequential order using loop variables (e.g., data[i] in a for-loop over i).
+-- Accessing array elements in sequential order using loop variables (e.g., data[i] in a for-loop over i).
 
-Emit diagnostic messages when such patterns are detected.
+-- Emit diagnostic messages when such patterns are detected.
 
-This enables developers to spot performance-critical code sections and optimize for better memory locality.
+-- This enables developers to spot performance-critical code sections and optimize for better memory locality.
 
 🚀 Features
+
 ✅ Detects sequential memory accesses (e.g., data[i])
 
 🚫 Flags irregular accesses (e.g., output[indices[i]])
@@ -22,28 +25,22 @@ This enables developers to spot performance-critical code sections and optimize 
 🎯 Custom command-line flag: --analyze-regular-memory-access
 
 💻 Example
-Regular Memory Access
-cpp
-Copy
-Edit
+
+Regular Memory Access -
 void compute(float* data, int N) {
     for (int i = 0; i < N; ++i) {
         data[i] = sin(data[i]) + cos(data[i]);
     }
 }
-Irregular Memory Access
-cpp
-Copy
-Edit
+
+Irregular Memory Access -
 void scatter(float* data, float* output, int* indices, int N) {
     for (int i = 0; i < N; ++i) {
         output[indices[i]] = data[i];
     }
 }
+
 Output:
-vbnet
-Copy
-Edit
 Analyzing function 'compute'...
 - Sequential access at line 3
   Reason: Index is loop variable 'i'
@@ -52,7 +49,9 @@ Analyzing function 'scatter'...
 - Irregular access at line 3
   Reason: Index is variable 'indices', not clearly a loop variable
 - This function may have irregular memory access.
+
 🧠 Analysis Logic
+
 AST Matcher identifies user-defined functions (FunctionDecl) excluding system headers.
 
 Each function body is recursively traversed to find ArraySubscriptExpr nodes.
@@ -72,30 +71,22 @@ CMake
 A C++17-compatible compiler
 
 📦 Build
-bash
-Copy
-Edit
+
 git clone https://github.com/Aditi7Singh/regular-memory-access-analyzer.git
 cd regular-memory-access-analyzer
 mkdir build && cd build
 cmake ..
 make
+
 ▶️ Usage
-bash
-Copy
-Edit
+
 ./regular-memory-access-analyzer --analyze-regular-memory-access file.cpp
 You can also run it as part of a compilation database:
-
-bash
-Copy
-Edit
 ./regular-memory-access-analyzer --analyze-regular-memory-access \
     -p build/ path/to/source.cpp
+
 📂 File Structure
-makefile
-Copy
-Edit
+
 regular-memory-access-analyzer/
 ├── CMakeLists.txt
 ├── src/
@@ -103,6 +94,7 @@ regular-memory-access-analyzer/
 ├── include/
 │   └── Analyzer.h            # Callback definitions (optional)
 └── README.md                 # You're here!
+
 📈 Future Work
 ⚡ Integrate LLVM IR-level memory pattern detection
 
@@ -112,7 +104,7 @@ regular-memory-access-analyzer/
 
 🧠 ML-based prediction for irregularity
 
-👥 Contributors
+👥 Contributor
 Aditi Singh - https://github.com/Aditi7Singh
 
 📜 License
